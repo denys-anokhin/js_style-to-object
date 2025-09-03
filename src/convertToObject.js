@@ -6,23 +6,19 @@
  * @return {object}
  */
 function convertToObject(sourceString) {
-  const objectString = {};
-  const arrayString = sourceString
+  const styleValues = {};
+  const stylePairs = sourceString
     .split(';')
     .filter((value) => value.trim().length > 1)
     .map((value) => value.split(':'));
 
-  arrayString.forEach(([a, b]) => {
-    objectString[
-      a
-        .trim()
-        .split('')
-        .filter((letter) => letter !== '\n')
-        .join('')
-    ] = b.trim();
+  stylePairs.forEach(([a, b]) => {
+    const property = a.replace('\n', '').trim();
+
+    styleValues[property] = b.trim();
   });
 
-  return objectString;
+  return styleValues;
 }
 
 module.exports = convertToObject;
