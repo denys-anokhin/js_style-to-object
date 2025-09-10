@@ -7,15 +7,24 @@
  */
 function convertToObject(sourceString) {
   const styleValues = {};
-  const stylePairs = sourceString
+  const declarations = sourceString
     .split(';')
-    .filter((value) => value.trim().length > 1)
-    .map((value) => value.split(':'));
+    .map((value) => value.trim())
+    .filter((value) => value.length > 0);
 
-  stylePairs.forEach(([a, b]) => {
-    const property = a.replace('\n', '').trim();
+  declarations.forEach((decl) => {
+    const i = decl.indexOf(':');
 
-    styleValues[property] = b.trim();
+    if (i === -1) {
+      return;
+    }
+
+    const property = decl.slice(0, i).trim();
+    const value = decl.slice(i + 1).trim();
+
+    if (property && value) {
+      styleValues[property] = value;
+    }
   });
 
   return styleValues;
