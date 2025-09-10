@@ -16,7 +16,6 @@ function convertToObject(sourceString) {
     const property = a.replace('\n', '').trim();
 
     styleValues[property] = b.trim();
-
   });
 
   return styleValues;
